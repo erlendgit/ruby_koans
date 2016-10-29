@@ -1,0 +1,4 @@
+clean=Remove any temporary products.
+clobber=Remove any generated files.
+default=
+test=
