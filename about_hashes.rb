@@ -20,20 +20,31 @@ class AboutHashes < Neo::Koan
     assert_equal nil, hash[:doesnt_exist]
   end
 
-  def test_accessing_hashes_with_fetch
-    hash = { :one => "uno" }
-    assert_equal "uno", hash.fetch(:one)
-    assert_raise(KeyError) do
-      hash.fetch(:doesnt_exist)
+  in_ruby_version("1.8") do
+    def test_accessing_hashes_with_fetch
+      hash = { :one => "uno" }
+      assert_equal "uno", hash.fetch(:one)
+      assert_raise(IndexError) do
+        hash.fetch(:doesnt_exist)
+      end
     end
-
-    # THINK ABOUT IT:
-    #
-    # Why might you want to use #fetch instead of #[] when accessing hash keys?
-    # 
-    # when it is unsertain what goes in: to prevent futher processing by
-    # catching the error instead of using conditional statements
   end
+
+  in_ruby_version("1.9", "2") do
+    def test_accessing_hashes_with_fetch
+      hash = { :one => "uno" }
+      assert_equal "uno", hash.fetch(:one)
+      assert_raise(KeyError) do
+        hash.fetch(:doesnt_exist)
+      end
+    end
+  end
+      # THINK ABOUT IT:
+      #
+      # Why might you want to use #fetch instead of #[] when accessing hash keys?
+      # 
+      # when it is unsertain what goes in: to prevent futher processing by
+      # catching the error instead of using conditional statements
 
   def test_changing_hashes
     hash = { :one => "uno", :two => "dos" }
