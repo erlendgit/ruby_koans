@@ -1,5 +1,18 @@
 # Triangle Project Code.
 
+def isosceles_test(a, b, c)
+  [
+    [a, b, c],
+    [a, c, b],
+    [b, c, a],
+  ].each{ |eq1, eq2, ne|
+    if eq1 == eq2 and eq1 != ne
+      return true
+    end
+  }
+  false
+end
+
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -14,7 +27,13 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  # WRITE THIS CODE
+  if a == b and a == c and b == c
+    return :equilateral
+  elsif isosceles_test(a, b, c)
+    return :isosceles
+  elsif a != b and a != c and b != c
+    return :scalene
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
