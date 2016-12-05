@@ -10,7 +10,7 @@ def isosceles_test(a, b, c)
       return true
     end
   }
-  false
+  return false
 end
 
 # Triangle analyzes the lengths of the sides of a triangle
@@ -27,6 +27,14 @@ end
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  if a == 0 and b == 0 and c == 0
+    fail TriangleError
+  elsif a < 0 or b < 0 or c < 0
+    fail TriangleError
+  elsif a + b <= c or a + c <= b or b + c <= a
+    fail TriangleError
+  end
+  
   if a == b and a == c and b == c
     return :equilateral
   elsif isosceles_test(a, b, c)
@@ -34,6 +42,7 @@ def triangle(a, b, c)
   elsif a != b and a != c and b != c
     return :scalene
   end
+  
 end
 
 # Error class used in part 2.  No need to change this code.
