@@ -5,11 +5,9 @@ def isosceles_test(a, b, c)
     [a, b, c],
     [a, c, b],
     [b, c, a],
-  ].each{ |eq1, eq2, ne|
-    if eq1 == eq2 and eq1 != ne
-      return true
-    end
-  }
+  ].each do |eq1, eq2, ne|
+    return true if eq1 == eq2 and eq1 != ne
+  end
   return false
 end
 
