@@ -32,10 +32,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def score(dice)
   result = 0
   
-  count = {}
-  (1..6).each do |number|
-    count[number] = 0
-  end
+  count = Hash.new(0)
 
   dice.each do |number|
     count[number] += 1
