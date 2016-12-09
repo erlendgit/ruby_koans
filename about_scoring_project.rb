@@ -32,28 +32,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 def score(dice)
   result = 0
   
-  count = Hash.new(0)
+  values = Hash.new(0)
 
   dice.each do |number|
-    count[number] += 1
-    tripple = true if count[number] > 0 and count[number] % 3 == 0
-    if number == 1
-      if tripple
-        result += 800
-      else
-        result += 100
-      end
-    else 
-      if number == 5
-        if tripple
-          result += 400
-        else
-          result += 50
-        end
-      elsif tripple
-          result += 100 * number
-      end
-    end
+    values[number] += 1
+  end
+  
+  values.each do |number, count|
+    tripples, singles = count / 3, count % 3
+    
+    result += 1000 * tripples + 100 * singles if number == 1
+    result += 50 * singles if number == 5
+    result += 100 * tripples * number if number != 1
   end
   
   return result
