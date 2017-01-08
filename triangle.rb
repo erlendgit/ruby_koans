@@ -1,16 +1,5 @@
 # Triangle Project Code.
 
-def isosceles_test(a, b, c)
-  [
-    [a, b, c],
-    [a, c, b],
-    [b, c, a],
-  ].each do |eq1, eq2, ne|
-    return true if eq1 == eq2 and eq1 != ne
-  end
-  return false
-end
-
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -25,19 +14,16 @@ end
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  if a == 0 and b == 0 and c == 0
-    fail TriangleError
-  elsif a < 0 or b < 0 or c < 0
-    fail TriangleError
-  elsif a + b <= c or a + c <= b or b + c <= a
-    fail TriangleError
-  end
-  
-  if a == b and a == c and b == c
+  sides = [a,b,c].sort!
+
+  fail TriangleError if sides[0] + sides[1] <= sides[2] or sides[0] <= 0
+
+  case sides.uniq.size
+  when 1
     return :equilateral
-  elsif isosceles_test(a, b, c)
+  when 2
     return :isosceles
-  elsif a != b and a != c and b != c
+  else
     return :scalene
   end
   
